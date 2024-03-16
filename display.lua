@@ -1,6 +1,7 @@
 
 local monitor = peripheral.find("monitor")
 monitor.setCursorPos(1, 1)
+monitor.clear()
 
 while x < 4 then
     monitor.write("Hello world")
