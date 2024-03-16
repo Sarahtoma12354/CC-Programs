@@ -20,7 +20,7 @@ term.clear()
 
 while true do
     print("Please input password:")
-    userPass = io.read()
+    userPass = io.read("*")
     file = io.open("masterPass.txt", "r")
     readMasterPass = file:read()
     file:close()
