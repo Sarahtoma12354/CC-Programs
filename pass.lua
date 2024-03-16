@@ -6,6 +6,7 @@ local function fileTest()
 end
 
 if not pcall(fileTest) then
+    term.setCursorPos(1, 1)
     file = io.open("masterPass.txt", "w")
     print("Please input the master password:")
     userMasterPass = read()
@@ -19,6 +20,7 @@ term.clear()
 
 
 while true do
+    term.setCursorPos(1, 1)
     print("Please input password:")
     userPass = read("*")
     file = io.open("masterPass.txt", "r")
