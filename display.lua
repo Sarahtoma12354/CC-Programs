@@ -8,6 +8,7 @@ monitor.clear()
 
 while x < 4 do
     monitor.write("Hello world")
+    monitor.setCursorPos(monitor.getCursorPos(x), monitor.getCursorPos(y))
     x = x + 1
     os.sleep(0.5)
 end
