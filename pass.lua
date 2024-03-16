@@ -8,7 +8,7 @@ end
 if not pcall(fileTest) then
     file = io.open("masterPass.txt", "w")
     print("Please input the master password:")
-    userMasterPass = io.read()
+    userMasterPass = read()
     file:write(userMasterPass)
     file:close()
     print("Password accepted, thank you.")
@@ -20,7 +20,7 @@ term.clear()
 
 while true do
     print("Please input password:")
-    userPass = io.read("*")
+    userPass = read("*")
     file = io.open("masterPass.txt", "r")
     readMasterPass = file:read()
     file:close()
