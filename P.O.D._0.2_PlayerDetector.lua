@@ -16,7 +16,6 @@ while true do
 PlayerLog = "PlayerLog2"
 --log = io.open(PlayerLog, "r")
 --if log == nil then
-    print("no file.")
     log = io.open(PlayerLog, "w")
     io.output(log)
     io.write("00/00/0000 at 00:00 999999999 \n")
@@ -42,6 +41,7 @@ until dataEnd == nil
 data = string.sub(data, lastLastDataEnd)
 
 if string.sub(data, string.find(data, " ", 16), -1)-time <= -120 then
+    print("Player Logged.")
     io.close(log)
     log = io.open(PlayerLog, "a")
     io.output(log)
