@@ -1,12 +1,15 @@
 -- P.O.D. - Player Online Detector Ver 0.2
-print("P.O.D. Version 0.2 Live Test")
-print("Recording Active.")
 
 -- Modem Detection
 if peripheral.find("modem") == nil then
     error("No Modem Found.")
 end
 modem = peripheral.find("modem")
+
+os.setComputerLabel("P.O.D. Player Detector 0.2")
+term.clear()
+term.setCursorPos(1,1)
+print("P.O.D. Version 0.2 Live Test")
 
 while true do
 -- File Preperation
