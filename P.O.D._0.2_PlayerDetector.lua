@@ -17,6 +17,8 @@ PlayerLog = "PlayerLog2"
 log = io.open(PlayerLog, "r")
 if log == nil then
     log = io.open(PlayerLog, "w")
+    io.output(log)
+    io.write("00/00/0000 at 00:00 999999999 \n")
     io.close(log)
     log = io.open(PlayerLog, "r")
 end
