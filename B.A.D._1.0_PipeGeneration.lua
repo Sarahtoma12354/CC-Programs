@@ -144,8 +144,18 @@ while true do
       monitor.setCursorPos(x, 1)
     end
     if loops >= (((xMax * yMax)/2)*3) then
+      os.sleep(0.5)
       monitor.clear()
       loops = 0
     end
+
+    if loops % 4 == 0 then
+      monitor.setTextColor(colors.white)
+    elseif loops % 4 == 1 or loops % 4 == 3 then
+      monitor.setTextColor(colors.lightGray)
+    elseif loops % 4 == 2 then
+      monitor.setTextColor(colors.gray)
+    end
+
     os.sleep(0.05)
 end
