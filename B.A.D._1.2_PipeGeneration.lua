@@ -1,4 +1,4 @@
---B.A.D. Boredom Avoidance Directive Pipe Generation 1.0
+--B.A.D. Boredom Avoidance Directive Pipe Generation 1.2
 
 if (peripheral.find("monitor") ~= nil) == false then
     print("Please place a monitor next to the computer.")
