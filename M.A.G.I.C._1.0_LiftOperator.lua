@@ -4,13 +4,17 @@ if peripheral.find("modem") == false then
     printError("No modem found, please place one next to the computer.")
 end
 
+if peripheral.find("Create_SequencedGearshift") == false then
+    printError("No gearshift found, please place one next to the computer.")
+end
+
 os.setComputerLabel("M.A.G.I.C Lift Operator")
 term.clear()
 term.setCursorPos(1,1)
 print("M.A.G.I.C Lift Operator Started")
 
 modem = peripheral.find("modem")
-gearshift = peripheral.wrap("top")
+gearshift = peripheral.find("Create_SequencedGearshift")
 modem.open(887)
 local extend = false
 
