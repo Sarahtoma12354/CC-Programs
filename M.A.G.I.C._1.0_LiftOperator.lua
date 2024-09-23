@@ -1,4 +1,4 @@
--- M.A.G.I.C. Movement Assistance and Guidance Intelligence Coordinator 1.0
+-- M.A.G.I.C. Movement Assistance and Guidance Intelligence Coordinator Lift Operator 1.0
 
 if peripheral.find("modem") == false then
     printError("No modem found, please place one next to the computer.")
