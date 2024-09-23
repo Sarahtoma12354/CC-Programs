@@ -6,6 +6,7 @@ end
 
 term.clear()
 term.setCursorPos(1,1)
+term.setTextColor(colors.pink)
 print("M.A.G.I.C Lift Notifier Started")
 
 modem = peripheral.find("modem")
