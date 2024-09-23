@@ -22,13 +22,13 @@ while true do
     event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
     if extend == false then
         if message == "extend" and distance <= 5 then
-            gearshift.move(6, 1)
+            gearshift.move(15, 1)
             modem.transmit(887, 887, "extending")
             extend = true
         end
     else
         if message == "extend" and distance >= 12 then
-            gearshift.move(6, -1)
+            gearshift.move(15, -1)
             modem.transmit(887, 887, "retracting")
             extend = false
         end
