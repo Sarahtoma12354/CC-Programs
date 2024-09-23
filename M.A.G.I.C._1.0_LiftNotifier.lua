@@ -6,7 +6,7 @@ end
 
 term.clear()
 term.setCursorPos(1,1)
-print("M.A.G.I.C Lift Notifier Started.")
+print("M.A.G.I.C Lift Notifier Started")
 
 modem = peripheral.find("modem")
 modem.open(887)
