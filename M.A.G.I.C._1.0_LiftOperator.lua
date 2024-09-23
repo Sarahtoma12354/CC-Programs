@@ -7,7 +7,7 @@ end
 os.setComputerLabel("M.A.G.I.C Lift Operator")
 term.clear()
 term.setCursorPos(1,1)
-print(".A.G.I.C Lift Operator")
+print("M.A.G.I.C Lift Operator")
 
 modem = peripheral.find("modem")
 gearshift = peripheral.wrap("top")
