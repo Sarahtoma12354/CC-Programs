@@ -4,6 +4,10 @@ if peripheral.find("modem") == false then
   printError("No modem found, please equip one.")
 end
 
+term.clear()
+term.setCursorPos(1,1)
+print("M.A.G.I.C Lift Notifier Started.")
+
 modem = peripheral.find("modem")
 modem.open(887)
 while true do
