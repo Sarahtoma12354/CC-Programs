@@ -1,5 +1,5 @@
 --B.A.D. Boredom Avoidance Directive Dot Bounce 1.0
---Argument Order: "Dot Text", (Text Scale), (Background Color), (Text Color)
+--Argument Order: "Dot Text", (Text Scale), (Background Color), (Text Color), (Dot Speed)
 --Use "_" to skip arguments!
 
 if peripheral.find("monitor") == nil then
@@ -59,7 +59,7 @@ local function bounce()
       dir.y = dir.y * -1
       printDot(x + dir.x, y + dir.y)
     end
-    sleep(0.25)
+    sleep(tonumber(args[5]) or 0.25)
   end
 end
 
