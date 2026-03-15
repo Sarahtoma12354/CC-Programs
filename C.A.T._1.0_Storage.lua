@@ -54,6 +54,7 @@ local function findItem(desiredItem, desiredCount)
 end
 
 local function prepareItem(desiredItem, desiredCount)
+  reds.setOutput("bottom", true)
   local items, status = findItem(desiredItem, desiredCount)
   if not status then
     return false
@@ -66,7 +67,6 @@ local function prepareItem(desiredItem, desiredCount)
       end
     end
     for _, slot in pairs(slots) do
-      reds.setOutput("bottom", true)
       itemsMoved = storagePeripheral.pushItems(peripheral.getName(buffer), slot, desiredCount)
       desiredCount = desiredCount - itemsMoved
     end
@@ -77,9 +77,10 @@ end
 
 local function sendItems(desiredItems)
   for item, count in pairs(desiredItems) do
-    prepareItem(item, count)
-    sleep(0.2)
-    print("Trying to give " .. count .. " of " .. item)
+    prepareItem(item, count) 
+    reds.setOutput("bottom", true)
+    sleep(0.2) 
+    print("Trying to give " .. count .. " of " .. item) 
     result = inventory.addItemToPlayer("north", {name=item, count=count})
     chat.sendToastToPlayer(result .. " of " .. item .. " have been added.", "Storage System", "Sarahtoma")
   end
