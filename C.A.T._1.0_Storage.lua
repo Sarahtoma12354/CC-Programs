@@ -2,10 +2,11 @@
 
 inventory = peripheral.find("inventory_manager")
 chat = peripheral.find("chat_box")
+reds = peripheral.find("redstone_relay")
 
 bufferName = "minecraft:barrel_0"
 buffer = peripheral.wrap(bufferName)
-
+reds.setOutput("bottom", true)
 
 --Returns table of index: itemTables
 local function refreshItems()
@@ -64,6 +65,7 @@ local function prepareItem(desiredItem, desiredCount)
       end
     end
     for _, slot in pairs(slots) do
+      reds.setOutput("bottom", true)
       itemsMoved = storagePeripheral.pushItems(peripheral.getName(buffer), slot, desiredCount)
       desiredCount = desiredCount - itemsMoved
     end
@@ -82,6 +84,7 @@ end
 
 local function takeItems(desiredItems)
   for item, count in pairs(desiredItems) do
+    reds.setOutput("bottom", false)
     inventory.removeItemFromPlayer("north", {name=item, count=count})
     chat.sendToastToPlayer(item .. " has been removed.", "Storage System", "Sarahtoma")
   end
