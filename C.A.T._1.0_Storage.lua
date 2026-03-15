@@ -14,6 +14,8 @@ bufferName = "minecraft:barrel_0"
 buffer = peripheral.wrap(bufferName)
 reds.setOutput("bottom", true)
 
+username = nil
+
 --Returns table of index: itemTables
 local function refreshItems()
   reds.setOutput("bottom", true)
@@ -81,12 +83,12 @@ end
 
 local function sendItems(desiredItems)
   for item, count in pairs(desiredItems) do
-    prepareItem(item, count) 
+    prepareItem(item, count)
     reds.setOutput("bottom", true)
-    sleep(0.2) 
-    print("Trying to give " .. count .. " of " .. item) 
+    sleep(0.2)
+    print("Trying to give " .. count .. " of " .. item)
     result = inventory.addItemToPlayer("up", {name=item, count=count})
-    chat.sendToastToPlayer(result .. " of " .. item .. " have been added.", "Storage System", "Sarahtoma")
+    chat.sendToastToPlayer(result .. " of " .. item .. " have been added.", "Storage System", username)
   end
 end
 
@@ -96,21 +98,39 @@ local function takeItems(desiredItems)
     sleep(0.2)
     print("Trying to take " .. count .. " of " .. item)
     result = inventory.removeItemFromPlayer("up", {name=item, count=count})
-    chat.sendToastToPlayer(result .. " of " .. item .. " have been removed.", "Storage System", "Sarahtoma")
+    chat.sendToastToPlayer(result .. " of " .. item .. " have been removed.", "Storage System", username)
   end
 end
 
+local function itemCount(desiredItems)
+  items = refreshItems()
+  itemCount = 0
+  print("Trying to find " .. item)
+  for item, count in pairs(desiredItems) do
+    for index, itemTable in pairs(items) do
+      if itemTable.name == item then
+        itemCount = itemCount + itemTable.count
+      end
+    end
+  end
+  chat.sendToastToPlayer(itemCount .. " of " .. item .. " have been found.", "Storage System", username)
+end
+
 while true do
-  local event, username, message, uuid, isHidden, messageUtf8 = os.pullEvent("chat")
+  event, username, message, uuid, isHidden, messageUtf8 = os.pullEvent("chat")
   if username == "Sarahtoma" then
     if string.lower(string.sub(message, 1, 4)) == "give" then
       item = string.sub(message, 6, string.find(message, " ", 6)-1)
-      count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1))
+      count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
       sendItems({[item] = count})
     elseif string.lower(string.sub(message, 1, 4)) == "take" then
       item = string.sub(message, 6, string.find(message, " ", 6)-1)
-      count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1))
+      count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
       takeItems({[item] = count})
+    elseif string.lower(string.sub(message, 1, 4)) == "find" then
+      item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
+      count = 0
+      itemCount({[item] = count})
     end
   end
 end
