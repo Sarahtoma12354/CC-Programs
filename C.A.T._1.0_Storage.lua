@@ -78,16 +78,16 @@ end
 local function sendItems(desiredItems)
   for item, count in pairs(desiredItems) do
     prepareItem(item, count)
-    inventory.addItemToPlayer("north", {name=item, count=count})
-    chat.sendToastToPlayer(item .. " has been added.", "Storage System", "Sarahtoma")
+    result = inventory.addItemToPlayer("north", {name=item, count=count})
+    chat.sendToastToPlayer(result .. " of " .. item .. " have been added.", "Storage System", "Sarahtoma")
   end
 end
 
 local function takeItems(desiredItems)
   for item, count in pairs(desiredItems) do
     reds.setOutput("bottom", false)
-    inventory.removeItemFromPlayer("north", {name=item, count=count})
-    chat.sendToastToPlayer(item .. " has been removed.", "Storage System", "Sarahtoma")
+    result = inventory.removeItemFromPlayer("north", {name=item, count=count})
+    chat.sendToastToPlayer(result .. " of " .. item .. " have been removed.", "Storage System", "Sarahtoma")
   end
 end
 
