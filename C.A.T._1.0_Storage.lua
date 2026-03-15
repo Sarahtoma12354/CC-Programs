@@ -76,16 +76,16 @@ local function sendItems(desiredItems)
   for item, count in pairs(desiredItems) do
     prepareItem(item, count)
     inventory.addItemToPlayer("north", {name=item, count=count})
+    chat.sendToastToPlayer("§n§6" .. item .. "§r§f has been added.", "§l§6Storage System", "Sarahtoma", )
   end
 end
 
 local function takeItems(desiredItems)
   for item, count in pairs(desiredItems) do
     inventory.removeItemFromPlayer("north", {name=item, count=count})
+    chat.sendToastToPlayer("§n§6" .. item .. "§r§f has been removed.", "§l§6Storage System", "Sarahtoma", )
   end
 end
-
-sendItems({["computercraft:cable"]=65})
 
 while true do
   local event, username, message, uuid, isHidden, messageUtf8 = os.pullEvent("chat")
