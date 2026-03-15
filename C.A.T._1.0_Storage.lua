@@ -81,7 +81,7 @@ local function sendItems(desiredItems)
     reds.setOutput("bottom", true)
     sleep(0.2) 
     print("Trying to give " .. count .. " of " .. item) 
-    result = inventory.addItemToPlayer("north", {name=item, count=count})
+    result = inventory.addItemToPlayer("up", {name=item, count=count})
     chat.sendToastToPlayer(result .. " of " .. item .. " have been added.", "Storage System", "Sarahtoma")
   end
 end
@@ -91,7 +91,7 @@ local function takeItems(desiredItems)
     reds.setOutput("bottom", false)
     sleep(0.2)
     print("Trying to take " .. count .. " of " .. item)
-    result = inventory.removeItemFromPlayer("north", {name=item, count=count})
+    result = inventory.removeItemFromPlayer("up", {name=item, count=count})
     chat.sendToastToPlayer(result .. " of " .. item .. " have been removed.", "Storage System", "Sarahtoma")
   end
 end
