@@ -10,6 +10,7 @@ reds.setOutput("bottom", true)
 
 --Returns table of index: itemTables
 local function refreshItems()
+  reds.setOutput("bottom", true)
   local items = {};
   local storageContainers = {peripheral.find("inventory")}
   --print(storageContainers)
