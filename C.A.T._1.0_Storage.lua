@@ -144,7 +144,7 @@ local function searchInv(search, count)
   foundItem = nil
   prevItem = nil
   for index, itemTable in pairs(items) do
-    if string.find(itemTable.name, item) then
+    if string.find(itemTable.name, search) then
       prevItem = foundItem
       foundItem = itemTable.name
       itemList[itemTable.name] = count or itemTable.count
@@ -155,25 +155,32 @@ local function searchInv(search, count)
       end
     end
   end
+  if not next(itemList) then
+    chat.sendToastToPlayer("No results found for " .. item .. ", please broaden your search.", "Storage System", username)
+  end
   return itemList
 end
 
 local function searchStorage(search, count)
+  print("Searching for " .. search)
   items = refreshItems()
   itemList = {}
   foundItem = nil
   prevItem = nil
   for index, itemTable in pairs(items) do
-    if string.find(itemTable.name, item) then
+    if string.find(itemTable.name, search) then
       itemList[itemTable.name] = count or itemTable.count
       if foundItem ~= prevItem and foundItem and prevItem then
         chat.sendToastToPlayer("Multiple results found for " .. item .. ", please sharpen your search.", "Storage System", username)
         itemList = {["minecraft:air"] = 0}
         break
       end
+      prevItem = foundItem
+      foundItem = itemTable.name
     end
-    prevItem = foundItem
-    foundItem = itemTable.count
+  end
+  if not next(itemList) then
+    chat.sendToastToPlayer("No results found for " .. item .. ", please broaden your search.", "Storage System", username)
   end
   return itemList
 end
@@ -213,17 +220,13 @@ while true do
       else
         count = 1
       end
-      desiredItems = searchStorage(item, count)
+      desiredItems = searchInv(item, count)
       if not desiredItems["minecraft:air"] then
         takeItems(desiredItems)
       end
     elseif string.lower(string.sub(message, 1, 4)) == "find" then
       item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
       count = 0
-      --desiredItems = searchStorage(item, count)
-      --if not desiredItems["minecraft:air"] then
-      --  itemCount(desiredItems)
-      --end
       itemCount({[item] = count})
     end
   end
