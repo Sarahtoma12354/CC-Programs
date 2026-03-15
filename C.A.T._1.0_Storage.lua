@@ -83,23 +83,99 @@ end
 
 local function sendItems(desiredItems)
   for item, count in pairs(desiredItems) do
-    prepareItem(item, count)
-    reds.setOutput("bottom", true)
-    sleep(0.2)
-    print("Trying to give " .. count .. " of " .. item)
-    result = inventory.addItemToPlayer("up", {name=item, count=count})
-    chat.sendToastToPlayer(result .. " of " .. item .. " have been added.", "Storage System", username)
+    items = refreshItems()
+    foundItem = nil
+    prevItem = nil
+    for index, itemTable in pairs(items) do
+      if string.find(itemTable.name, item) then
+        if foundItem ~= prevItem and foundItem and prevItem then
+          chat.sendToastToPlayer("Multiple results found for " .. item .. ", please sharpen your search.", "Storage System", username)
+          foundItem = "minecraft:air"
+          break
+        end
+        prevItem = foundItem
+        foundItem = itemTable.name
+      end
+    end
+    if foundItem then
+      prepareItem(foundItem, count)
+      reds.setOutput("bottom", true)
+      sleep(0.2)
+      print("Trying to give " .. count .. " of " .. foundItem)
+      result = inventory.addItemToPlayer("up", {name=foundItem, count=count})
+      chat.sendToastToPlayer(result .. " of " .. foundItem .. " have been added.", "Storage System", username)
+    else
+      chat.sendToastToPlayer("No results for " .. item .. " found.", "Storage System", username)
+    end
   end
 end
 
 local function takeItems(desiredItems)
   for item, count in pairs(desiredItems) do
-    reds.setOutput("bottom", false)
-    sleep(0.2)
-    print("Trying to take " .. count .. " of " .. item)
-    result = inventory.removeItemFromPlayer("up", {name=item, count=count})
-    chat.sendToastToPlayer(result .. " of " .. item .. " have been removed.", "Storage System", username)
+    items = inventory.getItems()
+    foundItem = nil
+    prevItem = nil
+    for index, itemTable in pairs(items) do
+      if string.find(itemTable.name, item) then
+        if foundItem ~= prevItem and foundItem and prevItem then
+          chat.sendToastToPlayer("Multiple results found for " .. item .. ", please sharpen your search.", "Storage System", username)
+          foundItem = "minecraft:air"
+          break
+        end
+        prevItem = foundItem
+        foundItem = itemTable.name
+      end
+    end
+    if foundItem then
+      reds.setOutput("bottom", false)
+      sleep(0.2)
+      print("Trying to take " .. count .. " of " .. foundItem)
+      result = inventory.removeItemFromPlayer("up", {name=foundItem, count=count})
+      chat.sendToastToPlayer(result .. " of " .. foundItem .. " have been removed.", "Storage System", username)
+    else
+      chat.sendToastToPlayer("No results for " .. item .. " found.", "Storage System", username)
+    end
   end
+end
+
+local function searchInv(search, count)
+  items = inventory.getItems()
+  itemList = {}
+  foundItem = nil
+  prevItem = nil
+  for index, itemTable in pairs(items) do
+    if string.find(itemTable.name, item) then
+      prevItem = foundItem
+      foundItem = itemTable.name
+      itemList[itemTable.name] = count or itemTable.count
+      if foundItem ~= prevItem and foundItem and prevItem then
+        chat.sendToastToPlayer("Multiple results found for " .. item .. ", please sharpen your search.", "Storage System", username)
+        itemList = {["minecraft:air"] = 0}
+        break
+      end
+    end
+  end
+  return itemList
+end
+
+local function searchStorage(search, count)
+  items = refreshItems()
+  itemList = {}
+  foundItem = nil
+  prevItem = nil
+  for index, itemTable in pairs(items) do
+    if string.find(itemTable.name, item) then
+      itemList[itemTable.name] = count or itemTable.count
+      if foundItem ~= prevItem and foundItem and prevItem then
+        chat.sendToastToPlayer("Multiple results found for " .. item .. ", please sharpen your search.", "Storage System", username)
+        itemList = {["minecraft:air"] = 0}
+        break
+      end
+    end
+    prevItem = foundItem
+    foundItem = itemTable.count
+  end
+  return itemList
 end
 
 local function itemCount(desiredItems)
@@ -113,23 +189,41 @@ local function itemCount(desiredItems)
       end
     end
   end
-  chat.sendToastToPlayer(desiredCount .. " of " .. item .. " have been found.", "Storage System", username)
+  chat.sendToastToPlayer(desiredCount .. " of \"*" .. item .. "*\" have been found.", "Storage System", username)
 end
 
 while true do
   event, username, message, uuid, isHidden, messageUtf8 = os.pullEvent("chat")
   if username == "Sarahtoma" then
     if string.lower(string.sub(message, 1, 4)) == "give" then
-      item = string.sub(message, 6, string.find(message, " ", 6)-1)
-      count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
-      sendItems({[item] = count})
+      item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
+      if string.find(message, " ", 6) then
+        count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
+      else
+        count = 1
+      end
+      desiredItems = searchStorage(item, count)
+      if not desiredItems["minecraft:air"] then
+        sendItems(desiredItems)
+      end
     elseif string.lower(string.sub(message, 1, 4)) == "take" then
-      item = string.sub(message, 6, string.find(message, " ", 6)-1)
-      count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
-      takeItems({[item] = count})
+      item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
+      if string.find(message, " ", 6) then
+        count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
+      else
+        count = 1
+      end
+      desiredItems = searchStorage(item, count)
+      if not desiredItems["minecraft:air"] then
+        takeItems(desiredItems)
+      end
     elseif string.lower(string.sub(message, 1, 4)) == "find" then
       item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
       count = 0
+      --desiredItems = searchStorage(item, count)
+      --if not desiredItems["minecraft:air"] then
+      --  itemCount(desiredItems)
+      --end
       itemCount({[item] = count})
     end
   end
