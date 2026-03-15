@@ -1,5 +1,11 @@
 --C.A.T. Chat Activated Terminal Storage Manager 1.0
 
+term.clear()
+term.setCursorPos(1,1)
+term.setTextColor(colors.pink)
+print("Managing Storage.")
+term.setTextColor(colors.lime)
+
 inventory = peripheral.find("inventory_manager")
 chat = peripheral.find("chat_box")
 reds = peripheral.find("redstone_relay")
@@ -13,9 +19,7 @@ local function refreshItems()
   reds.setOutput("bottom", true)
   local items = {};
   local storageContainers = {peripheral.find("inventory")}
-  --print(storageContainers)
   for storageIndex, storagePeripheral in pairs(storageContainers) do
-    --print(storageIndex, storagePeripheral)
     for itemIndex, itemTable in pairs(storagePeripheral.list()) do
       table.insert(items, itemTable)
     end
@@ -106,7 +110,6 @@ while true do
     elseif string.lower(string.sub(message, 1, 4)) == "take" then
       item = string.sub(message, 6, string.find(message, " ", 6)-1)
       count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1))
-      print(item, count)
       takeItems({[item] = count})
     end
   end
