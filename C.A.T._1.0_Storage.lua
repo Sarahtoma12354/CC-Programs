@@ -214,8 +214,14 @@ while true do
         sendItems(desiredItems)
       end
     elseif string.lower(string.sub(message, 1, 4)) == "take" then
-      item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
-      if string.find(message, " ", 6) then
+      if string.lower(string.sub(message, 6, 10)) == "hand" then
+        item = inventory.getItemInHand().name
+      else
+        item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
+      end
+      if string.lower(string.sub(message, 6, 10)) == "hand" then
+        count = tonumber(string.sub(message, 12, -1))
+      elseif string.find(message, " ", 6) then
         count = tonumber(string.sub(message, string.find(message, " ", 6)+1, -1)) or 1
       else
         count = 1
@@ -227,6 +233,10 @@ while true do
     elseif string.lower(string.sub(message, 1, 4)) == "find" then
       item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
       count = 0
+      --desiredItems = searchStorage(item, count)
+      --if not desiredItems["minecraft:air"] then
+      --  itemCount(desiredItems)
+      --end
       itemCount({[item] = count})
     end
   end
