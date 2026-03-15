@@ -108,7 +108,7 @@ local function itemCount(desiredItems)
   print("Trying to find " .. item)
   for item, count in pairs(desiredItems) do
     for index, itemTable in pairs(items) do
-      if itemTable.name == item then
+      if string.find(itemTable.name, item) then
         itemCount = itemCount + itemTable.count
       end
     end
