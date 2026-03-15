@@ -104,16 +104,16 @@ end
 
 local function itemCount(desiredItems)
   items = refreshItems()
-  itemCount = 0
+  desiredCount = 0
   print("Trying to find " .. item)
   for item, count in pairs(desiredItems) do
     for index, itemTable in pairs(items) do
       if string.find(itemTable.name, item) then
-        itemCount = itemCount + itemTable.count
+        desiredCount = desiredCount + itemTable.count
       end
     end
   end
-  chat.sendToastToPlayer(itemCount .. " of " .. item .. " have been found.", "Storage System", username)
+  chat.sendToastToPlayer(desiredCount .. " of " .. item .. " have been found.", "Storage System", username)
 end
 
 while true do
