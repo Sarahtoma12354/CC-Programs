@@ -1,5 +1,6 @@
 --C.A.T. Chat Activated Terminal Storage Manager 1.0
 
+
 term.clear()
 term.setCursorPos(1,1)
 term.setTextColor(colors.pink)
@@ -201,7 +202,7 @@ end
 
 while true do
   event, username, message, uuid, isHidden, messageUtf8 = os.pullEvent("chat")
-  if username == "Sarahtoma" then
+  if username == inventory.getOwner() then
     if string.lower(string.sub(message, 1, 4)) == "give" then
       item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
       if string.find(message, " ", 6) then
@@ -233,10 +234,6 @@ while true do
     elseif string.lower(string.sub(message, 1, 4)) == "find" then
       item = string.sub(message, 6, (string.find(message, " ", 6) or 0)-1)
       count = 0
-      --desiredItems = searchStorage(item, count)
-      --if not desiredItems["minecraft:air"] then
-      --  itemCount(desiredItems)
-      --end
       itemCount({[item] = count})
     end
   end
