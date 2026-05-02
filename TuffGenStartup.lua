@@ -136,7 +136,7 @@ turtle.placeUp()
 turtle.select(2)
 turtle.placeDown()
 turtle.forward()
-turtle.up
+turtle.up()
 turtle.select(slots.slab)
 turtle.placeUp()
 turtle.select(3)
