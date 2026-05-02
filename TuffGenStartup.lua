@@ -50,66 +50,66 @@ while true do
   sleep(1)
 end
 
-turtle.select(slots.chest)
+turtle.select(9)
 print("Fifth, a chest")
 while true do
-  if turtle.getItemDetail(slots.chest) then
-    if turtle.getItemDetail(slots.chest).name == "minecraft:chest" then
+  if turtle.getItemDetail(9) then
+    if turtle.getItemDetail(9).name == "minecraft:chest" then
       break
     end
   end
   sleep(1)
 end
 
-turtle.select(slots.slab)
+turtle.select(12)
 print("Sixth, two non-flammable slabs")
 while true do
-  if turtle.getItemDetail(slots.slab) then
-    if turtle.getItemDetail(slots.slab).count >= 2 then
+  if turtle.getItemDetail(12) then
+    if turtle.getItemDetail(12).count >= 2 then
       break
     end
   end
   sleep(1)
 end
 
-turtle.select(slots.water)
+turtle.select(13)
 print("Seventh, a water bucket")
 while true do
-  if turtle.getItemDetail(slots.water) then
-    if turtle.getItemDetail(slots.water).name == "minecraft:water_bucket" then
+  if turtle.getItemDetail(13) then
+    if turtle.getItemDetail(13).name == "minecraft:water_bucket" then
       break
     end
   end
   sleep(1)
 end
 
-turtle.select(slots.lava)
+turtle.select(14)
 print("Eighth, a lava bucket")
 while true do
-  if turtle.getItemDetail(slots.lava) then
-    if turtle.getItemDetail(slots.lava).name == "minecraft:lava_bucket" then
+  if turtle.getItemDetail(14) then
+    if turtle.getItemDetail(14).name == "minecraft:lava_bucket" then
       break
     end
   end
   sleep(1)
 end
 
-turtle.select(slots.bamboo)
+turtle.select(15)
 print("Ninth, a piece of bamboo")
 while true do
-  if turtle.getItemDetail(slots.bamboo) then
-    if turtle.getItemDetail(slots.bamboo).name == "minecraft:bamboo" then
+  if turtle.getItemDetail(15) then
+    if turtle.getItemDetail(15).name == "minecraft:bamboo" then
       break
     end
   end
   sleep(1)
 end
 
-turtle.select(slots.dirt)
+turtle.select(16)
 print("Tenth, a block of dirt")
 while true do
-  if turtle.getItemDetail(slots.dirt) then
-    if turtle.getItemDetail(slots.dirt).name == "minecraft:dirt" then
+  if turtle.getItemDetail(16) then
+    if turtle.getItemDetail(16).name == "minecraft:dirt" then
       break
     end
   end
