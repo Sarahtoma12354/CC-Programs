@@ -150,4 +150,7 @@ turtle.forward()
 turtle.turnLeft()
 turtle.turnLeft()
 
-print("Tuff generator built. Connect a lava input to the basin and rotation to either the press or deployer and restart this computer.")
+print("Tuff generator built.")
+print("Please place a crafting table in the top peripheral slot and a diamond pickaxe in the bottom one.")
+print("Lava is to be input to the basin, and rotation to either machine that requires it.")
+print("After those are done, restart the turtle.")
